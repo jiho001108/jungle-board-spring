@@ -2,6 +2,8 @@ package com.mysite.sbb;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionRepository;
 import org.junit.jupiter.api.Test;
@@ -17,7 +19,8 @@ class SbbApplicationTests {
 
     @Test
     void testJpa() {
-        Question q = this.questionRepository.findBySubject("sbb가 무엇인가요?");
-        assertEquals(1, q.getId());
+        List<Question> qList = this.questionRepository.findBySubjectLike("sbb%");
+        Question q = qList.get(0);
+        assertEquals("sbb가 무엇인가요?", q.getSubject());
     }
 }
