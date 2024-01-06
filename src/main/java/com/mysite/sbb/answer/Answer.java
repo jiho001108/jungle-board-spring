@@ -16,6 +16,8 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+/* 답변 엔티티 */
+
 @Getter
 @Setter
 @Entity
@@ -29,8 +31,8 @@ public class Answer {
 
     private LocalDateTime createDate;
 
-    @ManyToOne
-    private Question question;
+    @ManyToOne /* 질문 엔티티와 연결된 속성이라는 것을 답변 엔티티에 표시 */
+    private Question question; /* 질문 엔티티를 참조하기 위함, 답변을 통해 질문의 제목을 알고 싶다면, answer.getQuestion().getSubject()를 사용해 접근 */
     
     @ManyToOne
     private SiteUser author;
