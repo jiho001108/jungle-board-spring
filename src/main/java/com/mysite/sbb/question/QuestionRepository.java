@@ -12,10 +12,13 @@ import org.springframework.stereotype.Repository;
 
 /* JpaRepository는 JPA가 제공하는 인터페이스 중 하나로 CRUD 작업을 처리하는 메서드들을 이미 내장 */
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
-    Question findBySubject(String subject);
-    Question findBySubjectAndContent(String subject, String content);
+    Question findBySubject(String subject); /* JpaRepository는 findBySubject 메서드를 기본적으로 제공 X */
+
+    Question findBySubjectAndContent(String subject, String content); /* and 이용해서 여러 조건을 결합한 데이터 조회 */
+
     List<Question> findBySubjectLike(String subject);
     Page<Question> findAll(Pageable pageable);
+
     Page<Question> findAll(Specification<Question> spec, Pageable pageable);
     
     @Query("select "
