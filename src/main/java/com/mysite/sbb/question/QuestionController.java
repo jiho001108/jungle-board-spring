@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PathVariable; /* URL에 변수가 포함 될 때 */
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,11 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequestMapping("/question")
-@RequiredArgsConstructor
+@RequiredArgsConstructor /* final이 붙은 속성을 포함하는 생성자를 자동으로 만들어 주는 역할 */
 @Controller
 public class QuestionController {
 
-	private final QuestionService questionService;
+	private final QuestionService questionService; /* 리포지터리 대신 서비스 이용 */
 	private final UserService userService;
 
 	@GetMapping("/list")
@@ -46,7 +46,7 @@ public class QuestionController {
     public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
     	Question question = this.questionService.getQuestion(id);
         model.addAttribute("question", question);
-        return "question_detail";
+        return "question_detail"; /* question_detail.html 템플릿 렌더링 */
     }
     
     @PreAuthorize("isAuthenticated()")

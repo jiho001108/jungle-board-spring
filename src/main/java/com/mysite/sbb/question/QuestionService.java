@@ -56,13 +56,14 @@ public class QuestionService {
         return this.questionRepository.findAll(spec, pageable);
 //        return this.questionRepository.findAllByKeyword(kw, pageable);
     }
-    
-    public Question getQuestion(Integer id) {  
+
+    /* quesiton_detail.html에서 질문 데이터 조회 */
+    public Question getQuestion(Integer id) {  /* id값으로 질문 데이터를 조회 */
         Optional<Question> question = this.questionRepository.findById(id);
         if (question.isPresent()) {
             return question.get();
         } else {
-            throw new DataNotFoundException("question not found");
+            throw new DataNotFoundException("question not found"); /* 데이터 존재하는지 검사 */
         }
     }
     
