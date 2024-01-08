@@ -50,13 +50,13 @@ public class QuestionController {
     }
     
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/create")
+    @GetMapping("/create") /* get 요청 처리 */
     public String questionCreate(QuestionForm questionForm) {
         return "question_form";
     }
     
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/create")
+    @PostMapping("/create") /* post 요청 처리 */
     public String questionCreate(@Valid QuestionForm questionForm, 
     		BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
@@ -64,7 +64,7 @@ public class QuestionController {
         }
         SiteUser siteUser = this.userService.getUser(principal.getName());
         this.questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
-        return "redirect:/question/list";
+        return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
     }
     
     @PreAuthorize("isAuthenticated()")

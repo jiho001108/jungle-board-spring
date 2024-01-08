@@ -66,7 +66,8 @@ public class QuestionService {
             throw new DataNotFoundException("question not found"); /* 데이터 존재하는지 검사 */
         }
     }
-    
+
+    /* 저장하기 버튼 기능 추가: POST 요청으로 질문 저장하기 */
     public void create(String subject, String content, SiteUser user) {
         Question q = new Question();
         q.setSubject(subject);
