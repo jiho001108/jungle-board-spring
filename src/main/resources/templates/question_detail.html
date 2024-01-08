@@ -1,11 +1,7 @@
-<!-- 스타일시트 파일을 상세 페이지 템플릿에 적용
-  	static 디렉터리 스태틱 파일들의 루트 디렉터리 -->
-<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+<!-- layout.html 템플릿 상속하기 -->
+<html layout:decorate="~{layout}">
 
-<!-- 부트스트랩 적용하기 -->
-<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-
-<div class="container my-3">
+<div layout:fragment="content" class="container my-3">
 	<!-- 질문 -->
 	<h2 class="border-bottom py-2" th:text="${question.subject}"></h2>
 	<div class="card my-3">
@@ -39,3 +35,4 @@
 		<input type="submit" value="답변등록" class="btn btn-primary my-2">
 	</form>
 </div>
+</html>

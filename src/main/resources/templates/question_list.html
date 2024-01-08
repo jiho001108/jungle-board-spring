@@ -1,11 +1,12 @@
-<!-- 부트스트랩 적용하기 -->
-<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+<!-- layout.html 템플릿 상속하기 -->
+<html layout:decorate="~{layout}">
 
-<div class="container my-3"> <!-- 부트스트랩 -->
-    <table class="table"> <!-- 부트스트랩 -->
-        <thead class="table-dark"> <!-- 부트스트랩 -->
+<!-- 부모의 템플릿 <th:block layout:fragment="content"></th:block> 이곳에 자식의 내용 삽입 -->
+<div layout:fragment="content" class="container my-3">
+    <table class="table">
+        <thead class="table-dark">
         <tr>
-            <th>번호</th> <!-- 부트스트랩 -->
+            <th>번호</th>
             <th>제목</th>
             <th>작성일시</th>
         </tr>
@@ -21,3 +22,4 @@
         </tbody>
     </table>
 </div>
+</html>
