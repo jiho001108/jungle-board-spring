@@ -28,9 +28,10 @@ public class UserController {
             return "signup_form";
         }
 
+        /* 입력받은 2개의 비밀번호가 일치하는지 확인 */
         if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
-            bindingResult.rejectValue("password2", "passwordInCorrect", 
-                    "2개의 패스워드가 일치하지 않습니다.");
+            bindingResult.rejectValue("password2", "passwordInCorrect",
+                    "2개의 패스워드가 일치하지 않습니다."); /* bindingResult.rejectValue(필드명, 오류 코드, 오류 메시지) */
             return "signup_form";
         }
 

@@ -18,7 +18,7 @@ public class SiteUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true) /* 유일한 값만 저장할 수 있음을 의미, 중복 저장 불가 */
     private String username;
 
     private String password;

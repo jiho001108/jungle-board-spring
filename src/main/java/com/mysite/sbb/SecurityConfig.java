@@ -46,9 +46,9 @@ public class SecurityConfig {
         return http.build();
     }
     
-    @Bean
+    @Bean /* PasswordEncoder 빈 만들기, 유지보수 위함 */
     PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); /* BCryptPasswordEncoder 객체를 빈으로 등록해서 사용 */
     }
     
     @Bean
