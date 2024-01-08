@@ -1,38 +1,37 @@
 package com.mysite.sbb;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
-import java.util.Optional;
-
-import com.mysite.sbb.answer.Answer;
-import com.mysite.sbb.question.Question;
-import com.mysite.sbb.question.QuestionRepository;
-import jakarta.transaction.Transactional;
+import com.mysite.sbb.user.SiteUser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.mysite.sbb.question.QuestionService;
 
-/* 질문을 조회한 후 이 질문에 달린 답변 전체를 구하는 테스트 코드 */
+import java.util.UUID;
+
 @SpringBootTest
 class SbbApplicationTests {
 
     @Autowired
-    private QuestionRepository questionRepository;
+    private QuestionService questionService;
 
-    /* @Transactional: 메서드가 종료될 때까지 DB 세션이 유지 */
-    @Transactional
     @Test
     void testJpa() {
-        Optional<Question> oq = this.questionRepository.findById(2);
-        assertTrue(oq.isPresent()); /* oq에서 존재하면, Question이 null값이 아니면 */
-        Question q = oq.get(); /* Question 값을 꺼냄 */
+        for (int i = 1; i <= 300; i++) {
+            String subject = String.format("테스트 데이터입니다:[%03d]", i);
+            String content = "내용무";
+            // 유니크한 사용자 이름 생성
+            String username = UUID.randomUUID().toString();
 
-        List<Answer> answerList = q.getAnswerList();
+            // 새로운 사용자 객체 생성
+            SiteUser user = new SiteUser();
+            user.setUsername(username);
+            user.setPassword("somePassword");
 
-        assertEquals(1, answerList.size());
-        assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
+            // UUID를 사용하여 유니크한 이메일 생성
+            String email = username + "@example.com";
+            user.setEmail(email);
+            this.questionService.create(subject, content, user);
+        }
     }
 }
