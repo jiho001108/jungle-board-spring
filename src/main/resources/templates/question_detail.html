@@ -1,6 +1,20 @@
+<!-- 스타일시트 파일을 상세 페이지 템플릿에 적용
+  	static 디렉터리 스태틱 파일들의 루트 디렉터리 -->
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+
+<!-- 1. -->
 <h1 th:text="${question.subject}"></h1>
 <div th:text="${question.content}"></div>
 
+<!-- 3. -->
+<h5 th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
+<div>
+	<ul>
+		<li th:each="answer : ${question.answerList}" th:text="${answer.content}"></li>
+	</ul>
+</div>
+
+<!-- 2. -->
 <form th:action="@{|/answer/create/${question.id}|}" method="post">
 	<textarea name="content" id="content" rows="15"></textarea>
 	<input type="submit" value="답변등록">
