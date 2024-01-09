@@ -1,6 +1,11 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
+    <!-- 로그인 post 요청 -->
     <form th:action="@{/user/login}" method="post">
+        <!-- 스프링 시큐리티의 로그인이 실패할 경우에는 로그인 페이지로 리다이렉트
+         이때 페이지 매개변수로 error가 함께 전달.
+         따라서 로그인 페이지의 매개변수로 error가 전달될 경우
+         ‘사용자 ID 또는 비밀번호를 확인해 주세요.’라는 오류 메시지를 출력 -->
         <div th:if="${param.error}">
             <div class="alert alert-danger">
                 사용자ID 또는 비밀번호를 확인해 주세요.

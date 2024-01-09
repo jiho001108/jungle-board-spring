@@ -35,13 +35,17 @@ public class SecurityConfig {
             .headers((headers) -> headers
                 .addHeaderWriter(new XFrameOptionsHeaderWriter(
                     XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
+
+                /* 스프링 시큐리티의 로그인 설정을 담당 */
             .formLogin((formLogin) -> formLogin
-                .loginPage("/user/login")
-                .defaultSuccessUrl("/"))
+                .loginPage("/user/login") /* 로그인 페이지 url 설정 */
+                .defaultSuccessUrl("/")) /* 로그인 성공 시 이동할 페이지 */
+
+                /* 로그아웃 구현 */
             .logout((logout) -> logout
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true))
+                .logoutSuccessUrl("/") /* 로그아웃 성공 시, 루트 페이지로 이동 */
+                .invalidateHttpSession(true)) /* 로그아웃 시, 생성된 사용자 세션 삭제 */
         ;
         return http.build();
     }
@@ -50,7 +54,9 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(); /* BCryptPasswordEncoder 객체를 빈으로 등록해서 사용 */
     }
-    
+
+    /* 스프링 시큐리티의 인증을 처리
+    UserSecurityService와 PasswordEncoder를 내부적으로 사용하여 인증과 권한 부여 프로세스를 처리 */
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
