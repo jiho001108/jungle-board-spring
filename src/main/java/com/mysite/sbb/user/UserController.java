@@ -35,16 +35,20 @@ public class UserController {
             return "signup_form";
         }
 
+        /* try-catch 중복 회원 가입 방지 */
         try {
             userService.create(userCreateForm.getUsername(), 
                     userCreateForm.getEmail(), userCreateForm.getPassword1());
+            /* 데이터 무결성 위반(DataIntegrityViolationException)
+            * 사용자 ID or 이메일 주소가 이미 존재할 경우 */
         }catch(DataIntegrityViolationException e) {
             e.printStackTrace();
+            /* 글로벌 오류를 추가 */
             bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
             return "signup_form";
-        }catch(Exception e) {
+        }catch(Exception e) { /* 데이터 무결성 위반을 제외한 일반적인 오류를 발생시킬 때 사용 */
             e.printStackTrace();
-            bindingResult.reject("signupFailed", e.getMessage());
+            bindingResult.reject("signupFailed", e.getMessage()); /* e.getMessage(): 해댱 예외에 대한 구체적인 오류 메세지 출력 */
             return "signup_form";
         }
 
